@@ -1,7 +1,7 @@
 import React from "react";
-import { Switch, Route } from "react-router-dom";
+import { Switch, Route, Redirect } from "react-router-dom";
 
-import Home from "./pages/Home";
+import Home from "./pages/HomePage";
 import ProductsList from "./pages/ProductsList";
 
 export default function Routes() {
