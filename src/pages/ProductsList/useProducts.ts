@@ -3,22 +3,18 @@ import { useQuery, gql } from "@apollo/client";
 import moment from "moment";
 
 import client, { PRODUCTS, DISTRIBUTOR_ID } from "../../services/ApiService";
-
-import useHomePage from "../HomePage/useHomePage";
-
 import { Product } from "../../types";
 
 const useProducts = () => {
   const [distributorId, setDistributorId] = useState<number>();
   const [isLoadingProducts, setIsLoadingProducts] = useState(true);
   const [products, setProducts] = useState<Product[]>([]);
-  const { geolocation } = useHomePage();
-
+ 
   useEffect(() => {
     distributorId && getProductsList();
   }, [distributorId]);
 
-  const getDistributorId = () => {
+  const getDistributorId = (lat: string, long: string) => {
     setIsLoadingProducts(true);
     const now = moment().format();
     client
@@ -26,13 +22,12 @@ const useProducts = () => {
         query: DISTRIBUTOR_ID,
         variables: {
           algorithm: "NEAREST",
-          lat: "-23.632919",
-          long: "-46.699453",
+          lat,
+          long,
           now,
         },
       })
       .then((result) => {
-        console.log(result.data.pocSearch[0].id);
         const id = result.data.pocSearch[0].id;
         setDistributorId(id);
       });

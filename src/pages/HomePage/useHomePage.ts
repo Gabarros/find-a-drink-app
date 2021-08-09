@@ -14,7 +14,7 @@ const useHomePage = () => {
   };
 
   useEffect(() => {
-    geolocation && history.push("/products");
+    geolocation && history.push(`/products/${geolocation.latitude}/${geolocation.longitude}`);
   }, [geolocation]);
 
   const getFormattedAddress = async () => {
