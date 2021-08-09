@@ -11,6 +11,7 @@
   "author": "Gabriel Almeida",
   "license": "ISC",
   "devDependencies": {
+    "@pmmmwh/react-refresh-webpack-plugin": "^0.4.3",
     "@types/react": "^17.0.16",
     "@types/react-dom": "^17.0.9",
     "@types/react-geocode": "^0.2.0",
@@ -18,8 +19,10 @@
     "css-loader": "^6.2.0",
     "html-webpack-plugin": "^5.3.2",
     "mini-css-extract-plugin": "^2.2.0",
+    "react-refresh": "^0.9.0",
     "style-loader": "^3.2.1",
     "ts-loader": "^9.2.5",
+    "type-fest": "^0.13.1",
     "typescript": "^4.3.5",
     "typescript-plugin-css-modules": "^3.4.0",
     "webpack": "^5.49.0",
