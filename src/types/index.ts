@@ -3,20 +3,12 @@ export interface Geolocation {
     longitude: number;
 };
 
-export interface Image {
-    url: string,
-}
-
-export interface Price{
-    price: number,
-}
-
 export interface Product {
     id: string;
     title: string;
-    images: Array<Image>;
+    images: Array<{url: string}>;
     quantity: number;
-    productVariants: Array<Price>;
+    productVariants: Array<{price: number}>;
 };
 
 

@@ -9,7 +9,7 @@ const useProducts = () => {
   const [distributorId, setDistributorId] = useState<number>();
   const [isLoadingProducts, setIsLoadingProducts] = useState(true);
   const [products, setProducts] = useState<Product[]>([]);
- 
+
   useEffect(() => {
     distributorId && getProductsList();
   }, [distributorId]);
@@ -44,10 +44,29 @@ const useProducts = () => {
         },
       })
       .then((result) => {
+        let products = result.data.poc.products;
+
+        let changedProducts = products.map((product) => ({
+          ...product,
+          quantity: 0,
+        }));
+        setProducts(changedProducts);
         setIsLoadingProducts(false);
-        setProducts(result.data.poc.products);
-        console.log(result.data.poc.products);
       });
+  };
+
+  const addProduct = (position: number) => {
+    let changedProducts = [...products];
+    changedProducts[position].quantity += 1;
+    setProducts(changedProducts);
+  };
+
+  const removeProduct = (position: number) => {
+    let changedProducts = [...products];
+    if (changedProducts[position].quantity !== 0) {
+      changedProducts[position].quantity -= 1;
+    }
+    setProducts(changedProducts);
   };
 
   return {
@@ -55,6 +74,8 @@ const useProducts = () => {
     getProductsList,
     getDistributorId,
     isLoadingProducts,
+    addProduct,
+    removeProduct,
   };
 };
 
