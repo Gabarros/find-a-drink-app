@@ -1,6 +1,9 @@
 import React from "react";
 
 import useHomePage from "./useHomePage";
+import InputAddress from "./components/InputAddress";
+import SearchButton from "./components/SearchButton";
+
 import classes from "./homePage.module.css";
 
 const Home = () => {
@@ -15,22 +18,14 @@ const Home = () => {
     <>
       <div className={classes.container}>
         <div className={classes.inputContainer}>
-          <input
-            type="search"
-            value={inputAddress}
-            onChange={(e) => handleChangeAddress(e)}
-            className={classes.input}
-            placeholder={
-              "Insira o endereço completo desejado para encontrar sua bebida"
-            }
+          <InputAddress
+            inputAddress={inputAddress}
+            handleChangeAddress={handleChangeAddress}
           />
-          <button
-            onClick={() => getFormattedAddress()}
-            className={classes.confirmationButton}
-            disabled={isValidInput}
-          >
-            Procurar Bebidas
-          </button>
+          <SearchButton
+            isValidInput={isValidInput}
+            onClick={getFormattedAddress}
+          />
         </div>
       </div>
     </>

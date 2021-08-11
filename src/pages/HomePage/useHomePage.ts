@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { useHistory } from "react-router-dom";
+import { useHistory, Link } from "react-router-dom";
 import Geocode from "../../services/GeolocationService";
 
 import { Geolocation } from "../../types";
@@ -14,7 +14,10 @@ const useHomePage = () => {
   };
 
   useEffect(() => {
-    geolocation && history.push(`/products/${geolocation.latitude}/${geolocation.longitude}`);
+    geolocation &&
+      history.push(
+        `/products/${geolocation.latitude}/${geolocation.longitude}`
+      );
   }, [geolocation]);
 
   const getFormattedAddress = async () => {
@@ -22,6 +25,14 @@ const useHomePage = () => {
       (response) => {
         let { lat, lng } = response.results[0].geometry?.location;
         setGeolocation({ latitude: lat, longitude: lng });
+        // () => (
+        //   <Link
+        //     to={{
+        //       pathname: "/products",
+        //       state: { fromDashboard: true },
+        //     }}
+        //   />
+        // );
       },
       (error) => {
         return error.response;
