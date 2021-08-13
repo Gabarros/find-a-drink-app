@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState } from "react";
 
 import client, { PRODUCTS } from "../../services/ApiService";
 import { Product } from "../../types";
