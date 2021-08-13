@@ -43,15 +43,10 @@ const useHomePage = () => {
         },
       })
       .then((result) => {
-        console.log("entrou");
         const id = result.data.pocSearch[0].id;
-        console.log(id);
         setDistributorId(id);
       })
-      .catch((error) => {
-        console.log(error);
-      })
-      .finally(() => {});
+      .catch((error) => {});
   };
 
   const isValidInput = inputAddress.length > 8;

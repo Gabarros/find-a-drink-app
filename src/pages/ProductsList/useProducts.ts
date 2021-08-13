@@ -4,11 +4,9 @@ import client, { PRODUCTS } from "../../services/ApiService";
 import { Product } from "../../types";
 
 const useProducts = () => {
-
   const [isLoadingProducts, setIsLoadingProducts] = useState(true);
   const [products, setProducts] = useState<Product[]>([]);
   const [loadingProductsFail, setLoadingProductsFail] = useState(false);
-
 
   const getProductsList = (distributorId: string) => {
     setIsLoadingProducts(true);
@@ -30,7 +28,8 @@ const useProducts = () => {
         }));
         setProducts(changedProducts);
         setIsLoadingProducts(false);
-      }).catch(() => {
+      })
+      .catch(() => {
         setLoadingProductsFail(true);
       });
   };
@@ -55,7 +54,7 @@ const useProducts = () => {
     isLoadingProducts,
     addProduct,
     removeProduct,
-    loadingProductsFail
+    loadingProductsFail,
   };
 };
 

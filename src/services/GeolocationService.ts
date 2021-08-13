@@ -5,4 +5,3 @@ Geocode.setLanguage("pt-br");
 Geocode.setRegion("pt-br");
 
 export default Geocode;
-
