@@ -1,38 +1,28 @@
 import { useState, useEffect } from "react";
-import { useHistory, Link } from "react-router-dom";
-import Geocode from "../../services/GeolocationService";
+import { useHistory } from "react-router-dom";
+import moment from "moment";
 
-import { Geolocation } from "../../types";
+import client, { DISTRIBUTOR_ID } from "../../services/ApiService";
+import Geocode from "../../services/GeolocationService";
 
 const useHomePage = () => {
   const history = useHistory();
-  const [geolocation, setGeolocation] = useState<Geolocation>();
   const [inputAddress, setInputAddress] = useState("");
+  const [distributorId, setDistributorId] = useState<number>();
 
   const handleChangeAddress = (event: React.FormEvent<HTMLInputElement>) => {
     setInputAddress(event.currentTarget.value);
   };
 
   useEffect(() => {
-    geolocation &&
-      history.push(
-        `/products/${geolocation.latitude}/${geolocation.longitude}`
-      );
-  }, [geolocation]);
+    distributorId && history.push(`/products/${distributorId}`);
+  }, [distributorId]);
 
   const getFormattedAddress = async () => {
     await Geocode.fromAddress(inputAddress).then(
       (response) => {
-        let { lat, lng } = response.results[0].geometry?.location;
-        setGeolocation({ latitude: lat, longitude: lng });
-        // () => (
-        //   <Link
-        //     to={{
-        //       pathname: "/products",
-        //       state: { fromDashboard: true },
-        //     }}
-        //   />
-        // );
+        const { lat, lng } = response.results[0].geometry?.location;
+        getDistributorId(lat, lng);
       },
       (error) => {
         return error.response;
@@ -40,14 +30,38 @@ const useHomePage = () => {
     );
   };
 
-  const isValidInput = inputAddress.length < 8;
+  const getDistributorId = (lat: string, long: string) => {
+    const now = moment().format();
+    client
+      .query({
+        query: DISTRIBUTOR_ID,
+        variables: {
+          algorithm: "NEAREST",
+          lat,
+          long,
+          now,
+        },
+      })
+      .then((result) => {
+        console.log("entrou");
+        const id = result.data.pocSearch[0].id;
+        console.log(id);
+        setDistributorId(id);
+      })
+      .catch((error) => {
+        console.log(error);
+      })
+      .finally(() => {});
+  };
+
+  const isValidInput = inputAddress.length > 8;
 
   return {
     getFormattedAddress,
     inputAddress,
     handleChangeAddress,
     isValidInput,
-    geolocation,
+    getDistributorId,
   };
 };
 

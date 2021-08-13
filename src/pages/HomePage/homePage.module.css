@@ -36,3 +36,11 @@
   color: white;
   font-weight: bolder;
 }
+
+.confirmationButton:disabled {
+  background-color: gray;
+}
+
+.confirmationButton:disabled:hover{
+  cursor: not-allowed;
+}

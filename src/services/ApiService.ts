@@ -20,20 +20,21 @@ export const DISTRIBUTOR_ID = gql`
 `;
 
 export const PRODUCTS = gql`
-query poc($id: ID!, $categoryId: Int, $search: String) {
-  poc(id: $id) {
-    id
-    products(categoryId: $categoryId, search: $search) {
+  query poc($id: ID!, $categoryId: Int, $search: String) {
+    poc(id: $id) {
       id
-      title
-      images {
-        url
-      }
-      productVariants {
-        price
+      products(categoryId: $categoryId, search: $search) {
+        id
+        title
+        images {
+          url
+        }
+        productVariants {
+          price
+        }
       }
     }
   }
-}`;
+`;
 
 export default client;

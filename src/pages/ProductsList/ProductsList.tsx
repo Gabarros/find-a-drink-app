@@ -2,23 +2,24 @@ import React, { useEffect } from "react";
 import { useParams } from "react-router-dom";
 
 import useProducts from "./useProducts";
+import ProductItem from "./components/ProductItem/ProductItem";
 import classes from "./productsList.module.css";
 
 const ProductsList = () => {
   const {
     products,
     isLoadingProducts,
-    getDistributorId,
     addProduct,
     removeProduct,
+    getProductsList,
   } = useProducts();
 
-  const params = useParams<{ latitude: string; longitude: string }>();
-  const { latitude, longitude } = params;
+  const params = useParams<{ distributorId: string }>();
+  const { distributorId } = params;
 
   useEffect(() => {
-    latitude && longitude && getDistributorId(latitude, longitude);
-  }, [latitude, longitude]);
+    distributorId && getProductsList(distributorId);
+  }, [distributorId]);
 
   return (
     <>
@@ -28,39 +29,13 @@ const ProductsList = () => {
         ) : (
           <ul className={classes.list}>
             {products.map((product, index) => (
-              <li key={product?.id} className={classes.listItem}>
-                <p className={classes.productTitle}>{product?.title}</p>
-                {product?.quantity !== 0 && (
-                  <span className={classes.quantity}>
-                    {product.quantity}
-                  </span>
-                )}
-                <div className={classes.buttonsContainer}>
-                  <button
-                    name="remove-product"
-                    onClick={() => removeProduct(index)}
-                    className={classes.button}
-                  >
-                    -
-                  </button>
-                  <img
-                    src={product?.images[0].url}
-                    alt={`Uma imagem de ${product?.title} `}
-                    className={classes.image}
-                  />
-                  <button
-                    name="add-product"
-                    onClick={() => addProduct(index)}
-                    className={classes.button}
-                  >
-                    +
-                  </button>
-                </div>
-
-                <p className={classes.price}>
-                  R$ {product.productVariants[0].price}
-                </p>
-              </li>
+              <ProductItem
+                product={product}
+                index={index}
+                removeProduct={removeProduct}
+                addProduct={addProduct}
+                key={product?.id}
+              />
             ))}
           </ul>
         )}

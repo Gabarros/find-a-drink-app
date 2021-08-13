@@ -12,9 +12,10 @@ const SearchButton: React.FC<SearchButtonProps> = ({
 }) => {
   return (
     <button
+      data-testid="search-button"
       onClick={() => onClick()}
       className={classes.confirmationButton}
-      disabled={isValidInput}
+      disabled={!isValidInput}
     >
       Procurar Bebidas
     </button>

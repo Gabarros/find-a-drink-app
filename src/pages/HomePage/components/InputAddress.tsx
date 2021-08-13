@@ -12,6 +12,7 @@ const InputAddress: React.FC<InputAddressProps> = ({
 }) => {
   return (
     <input
+      data-testid="input-address"
       type="search"
       value={inputAddress}
       onChange={(e) => handleChangeAddress(e)}
