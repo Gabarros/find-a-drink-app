@@ -1,6 +1,6 @@
 import Geocode from "react-geocode";
 
-Geocode.setApiKey("AIzaSyD4PXvkbxMluzGicYqyFhjHqqWajfIDOLI");
+Geocode.setApiKey("");
 Geocode.setLanguage("pt-br");
 Geocode.setRegion("pt-br");
 
